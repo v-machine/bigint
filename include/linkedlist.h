@@ -1,7 +1,7 @@
 /**
  * @file linkedlist.h
  * @brief Function prototypes and struct for a generic 
- * 		  linked list implementation.
+ *           linked list implementation.
  *
  * This linked list will accept any user-defined data. When supplying data for
  * the linked list, user must define their own functions for comparing two data
@@ -9,8 +9,8 @@
  * will be passed into the initialization of a linked list, and should have
  * identical argument and return types as the following example:
  * 
- * 		int my_cmp_data(void*, void*);
- * 		void my_repr_data(void*);
+ *         int my_cmp_data(void*, void*);
+ *         void my_repr_data(void*);
  *
  * User will be responsible for GC on any heap allocated data that are passed 
  * into a linked list.
@@ -30,9 +30,9 @@ typedef struct Node Iterator;
  * @brief Structure for a linked list.
  */
 struct LinkedList {
-	int (*cmp_data)(void*, void*); /**< User-defined func to  compare data*/
-	char* (*repr_data)(void*);     /**< User-defined func to print data */
-	Node* head; 		           /**< The head of the linked list */
+    int (*cmp_data)(void*, void*); /**< User-defined func to  compare data*/
+    char* (*repr_data)(void*);     /**< User-defined func to print data */
+    Node* head;                    /**< The head of the linked list */
 };
 
 /**
@@ -45,7 +45,7 @@ struct LinkedList {
  * @return A pointer to the initialized linked list.
  */
 LinkedList* linkedlist_init(int (*cmp_data)(void*, void*), 
-						    char* (*repr_data)(void*));
+                            char* (*repr_data)(void*));
 
 /**
  * @brief Adds a new data to the head of the link list.

@@ -8,9 +8,9 @@
  * will be passed into the initialization of a hashmap, and should have
  * identical argument and return types as following:
  * 
- * 		int my_cmp_key(void*, void*);
- * 		uint32_t my_hash(void*);
- * 		char* my_repr(void*, void*);
+ *         int my_cmp_key(void*, void*);
+ *         uint32_t my_hash(void*);
+ *         char* my_repr(void*, void*);
  *
  * User will be responsible for GC on any heap allocated data that are passed 
  * into a linked list.
@@ -30,12 +30,12 @@ typedef struct Node Node;
  * @brief Structure for the hashmap.
  */
 struct HashMap {
-	uint32_t size;                 /**< The size of the hashmap */
-	int (*cmp_key)(void*, void*);  /**< func to compare keys */ 
-	uint32_t (*hash)(void*);       /**< func to hash keys */
-	char* (*repr_key)(void*);      /**< func to represent key as string */
-	char* (*repr_val)(void*);      /**< func to represent key as string */
-	Node** map;                    /**< an array of chained nodes */
+    uint32_t size;                 /**< The size of the hashmap */
+    int (*cmp_key)(void*, void*);  /**< func to compare keys */ 
+    uint32_t (*hash)(void*);       /**< func to hash keys */
+    char* (*repr_key)(void*);      /**< func to represent key as string */
+    char* (*repr_val)(void*);      /**< func to represent key as string */
+    Node** map;                    /**< an array of chained nodes */
 };
 
 /**
@@ -50,10 +50,10 @@ struct HashMap {
  * @param repr_val The user-defined string representation of val.
  */
 HashMap* hashmap_init(uint32_t size,
-					  int (*cmp_key)(void*, void*),
-					  uint32_t (*hash)(void*),
-					  char* (*repr_key)(void*),
-					  char* (*repr_val)(void*));
+                      int (*cmp_key)(void*, void*),
+                      uint32_t (*hash)(void*),
+                      char* (*repr_key)(void*),
+                      char* (*repr_val)(void*));
 
 /**
  * @brief Inserts a new key, value pair into the hashmap.

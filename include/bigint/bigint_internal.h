@@ -30,8 +30,8 @@ typedef struct BigInt BigInt;
 
 struct BigInt
 {
-	int32_t sign_len;
-	uint32_t* digits;
+    int32_t sign_len;
+    uint32_t* digits;
 };
 
 /** internal uses */
@@ -49,8 +49,8 @@ BigInt* _neg(BigInt* n); // TODO: do this without using BigInt.
  */
 struct QuoRem 
 {
-	uint32_t quotian;
-	uint32_t* remainder;
+    uint32_t quotian;
+    uint32_t* remainder;
 };
 
 /* Constant unsigned digits */
@@ -83,7 +83,7 @@ uint32_t* __add(uint32_t* a, uint32_t* b);
 uint32_t* __subtr(uint32_t* a, uint32_t* b);
 uint32_t* __slice_digits(uint32_t* n, int start, int end);
 uint32_t* __power_mod(uint32_t* base, uint32_t* exp,
-		             uint32_t* m, HashMap* cache);
+                     uint32_t* m, HashMap* cache);
 uint32_t** __divmod(uint32_t* n, uint32_t* m);
 struct QuoRem* __single_divmod(uint32_t* n, uint32_t* d);
 
