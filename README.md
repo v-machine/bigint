@@ -1,4 +1,4 @@
-                                                                                     
+```                                                                                     
 8 888888888o    8 8888     ,o888888o.     8 8888 b.             8 8888888 8888888888 
 8 8888    `88.  8 8888    8888     `88.   8 8888 888o.          8       8 8888       
 8 8888     `88  8 8888 ,8 8888       `8.  8 8888 Y88888o.       8       8 8888       
@@ -11,6 +11,7 @@
 8 888888888P    8 8888     `8888888P'     8 8888 8            `Yo       8 8888       
 
 8888888888888888888888888888888    DEV IN PROGRESS    888888888888888888888888888888
+```
 
 # Overview
 BigInt is a C library for computing integers with arbitrary sizes. BigInt is currently in active development.
