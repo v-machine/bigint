@@ -17,7 +17,7 @@
 BigInt is a C library for computing integers with arbitrary sizes. BigInt is currently in active development.
 
 # Motivation
-Built-in integer types in C are limited by the size of the register. The built-in types should suffice for most general purpose programming. However, when it comes to modern cryptography, the need to compute with primes with hundreds of digits dwarfs even the `long long` type. Thus, the need for a big integer library seemed justified.
+Built-in integer types in C are limited by the size of the register. Sufficed for most general purpose programming, they fall short when it comes to modern cryptography. The need to compute with primes with hundreds of digits dwarfs even the `long long` type. Thus, the need for a big integer library seemed justified.
 
 Noob to C and facinated by crytography, I have decided to write a big integer library as an excuse to practice C programming and to delve deeper into computer systems. A byproduct of learning, this codebase is (and continutes to be) rough on the edges, but hopefully less so in each succesive iterations. 
 
