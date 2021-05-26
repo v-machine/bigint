@@ -330,21 +330,29 @@ void test_add()
 void test_subtr() 
 {
     uint32_t res_three_digit[] = {3, 777777777, 999999998, 1};
+    uint32_t res_four_digit [] = {2, 500000000, 111111111};
+
+    /* hidden failed cases */
+    uint32_t n[] = {4, 0, 0, 0, 1};
+    uint32_t m[] = {3, 500000000, 888888888, 999999999};
 
     uint32_t* _res_zero         = __subtr(zero, zero);
     uint32_t* _res_one          = __subtr(two_digit, one_digit);
     uint32_t* _res_one_digit    = __subtr(two_digit, one);
     uint32_t* _res_three_digit  = __subtr(three_digit, two_digit);
+    uint32_t* _res_four_digit   = __subtr(n, m);
 
     assert_uint32_arr_eq(zero,               _res_zero,           *zero + 1,           *_res_zero + 1);
     assert_uint32_arr_eq(one,                _res_one,            *one + 1,            *_res_one + 1);
     assert_uint32_arr_eq(one_digit,          _res_one_digit,      *one_digit + 1,      *_res_one_digit + 1);
     assert_uint32_arr_eq(res_three_digit,    _res_three_digit,    *three_digit + 1,    *_res_three_digit + 1);
+    assert_uint32_arr_eq(res_four_digit,     _res_four_digit,     *res_four_digit + 1, *_res_four_digit + 1);
 
     free(_res_zero);
     free(_res_one);
     free(_res_one_digit);
     free(_res_three_digit);
+    free(_res_four_digit);
 }
 
 void test_mult()
@@ -422,7 +430,6 @@ void test_divmod()
     uint32_t rem_e[] = {1, 333333336};
     uint32_t rem_g[] = {2, 586419753, 469135803};
     
-    /* test quotion */
     assert_uint32_arr_eq(three_digit,   _res_a[0],    *three_digit + 1,   *(_res_a[0]) + 1);  
     assert_uint32_arr_eq(quo_b,         _res_b[0],    *quo_b + 1,         *(_res_b[0]) + 1);  
     assert_uint32_arr_eq(quo_c,         _res_c[0],    *quo_c + 1,         *(_res_c[0]) + 1);  
@@ -431,7 +438,6 @@ void test_divmod()
     assert_uint32_arr_eq(quo_f,         _res_f[0],    *quo_f + 1,         *(_res_f[0]) + 1);  
     assert_uint32_arr_eq(quo_g,         _res_g[0],    *quo_g + 1,         *(_res_g[0]) + 1);  
 
-    /* test remainder */
     assert_uint32_arr_eq(zero,      _res_a[1],    *zero + 1,     *(_res_a[1]) + 1);  
     assert_uint32_arr_eq(rem_b,     _res_b[1],    *rem_b + 1,    *(_res_b[1]) + 1);  
     assert_uint32_arr_eq(rem_c,     _res_c[1],    *rem_c + 1,    *(_res_c[1]) + 1);  
@@ -458,31 +464,38 @@ void test_power_mod()
 
     uint32_t res_c[] = {1, 333333334};
     uint32_t res_d[] = {3, 645076623, 339392621, 1};
-    // uint32_t res_d[] = {2, 173585468, 182018086};
+    uint32_t res_e[] = {2, 173585468, 182018086};
 
-    // uint32_t* _res_zero_a    = __power_mod(zero, three_digit, one, cache);
-    // uint32_t* _res_zero_b     = __power_mod(two_digit, three_digit, two_digit, cache);
-    // uint32_t* _res_one_a    = __power_mod(one, one_digit, two_digit, cache);
-    // uint32_t* _res_one_b     = __power_mod(two_digit, zero, three_digit, cache);
-    // uint32_t* _res_a         = __power_mod(one_digit, one, three_digit, cache);
-    // uint32_t* _res_b         = __power_mod(two_digit, one_digit, one_digit, cache);
-    // uint32_t* _res_c         = __power_mod(three_digit, four_digit, one_digit, cache);
-    // uint32_t* _res_d         = __power_mod(two_digit, two_digit, three_digit, cache); // BUG Found!
-    // printf("called __power_mod(two_digit, two_digit, three_digit, cache)\n");
-    // hashmap_print(cache);
+    uint32_t* _res_zero_a    = __power_mod(zero, three_digit, one, cache);
+    hashmap_clear(cache);
+    uint32_t* _res_zero_b     = __power_mod(two_digit, three_digit, two_digit, cache);
+    hashmap_clear(cache);
+    uint32_t* _res_one_a    = __power_mod(one, one_digit, two_digit, cache);
+    hashmap_clear(cache);
+    uint32_t* _res_one_b     = __power_mod(two_digit, zero, three_digit, cache);
+    hashmap_clear(cache);
+    uint32_t* _res_a         = __power_mod(one_digit, one, three_digit, cache);
+    hashmap_clear(cache);
+    uint32_t* _res_b         = __power_mod(two_digit, one_digit, one_digit, cache);
+    hashmap_clear(cache);
+    uint32_t* _res_c         = __power_mod(three_digit, four_digit, one_digit, cache);
+    hashmap_clear(cache);
+    uint32_t* _res_d         = __power_mod(two_digit, two_digit, three_digit, cache); // BUG Found!
+    hashmap_clear(cache);
+    uint32_t* _res_e         = __power_mod(two_digit, four_digit, three_digit, cache); // BUG Found!
     
-    // assert_uint32_arr_eq(zero,             _res_zero_a,    *zero + 1,            *_res_zero_a + 1);
-    // assert_uint32_arr_eq(zero,            _res_zero_b,    *zero + 1,            *_res_zero_b + 1);
-    // assert_uint32_arr_eq(one,            _res_one_a,        *one + 1,            *_res_one_a + 1);
-    // assert_uint32_arr_eq(one,            _res_one_b,        *one + 1,            *_res_one_b + 1);
-    // assert_uint32_arr_eq(one_digit,     _res_a,            *one_digit + 1,     *_res_a + 1);
-    // assert_uint32_arr_eq(one,             _res_b,            *one + 1,             *_res_b + 1);
-    // assert_uint32_arr_eq(res_c,         _res_c,            *res_c + 1,            *_res_c + 1);
-    // assert_uint32_arr_eq(res_d,         _res_d,            *res_d + 1,            *_res_d + 1);
+    assert_uint32_arr_eq(zero,          _res_zero_a,    *zero + 1,         *_res_zero_a + 1);
+    assert_uint32_arr_eq(zero,          _res_zero_b,    *zero + 1,         *_res_zero_b + 1);
+    assert_uint32_arr_eq(one,           _res_one_a,     *one + 1,          *_res_one_a + 1);
+    assert_uint32_arr_eq(one,           _res_one_b,     *one + 1,          *_res_one_b + 1);
+    assert_uint32_arr_eq(one_digit,     _res_a,         *one_digit + 1,    *_res_a + 1);
+    assert_uint32_arr_eq(one,           _res_b,         *one + 1,          *_res_b + 1);
+    assert_uint32_arr_eq(res_c,         _res_c,         *res_c + 1,        *_res_c + 1);
+    assert_uint32_arr_eq(res_d,         _res_d,         *res_d + 1,        *_res_d + 1);
+    assert_uint32_arr_eq(res_e,         _res_e,         *res_e + 1,        *_res_e + 1);
 
-    // hashmap_free(&cache);
+    hashmap_free(&cache);
     
-    /**
     free(_res_zero_a);
     free(_res_zero_b);
     free(_res_one_a);
@@ -491,7 +504,7 @@ void test_power_mod()
     free(_res_b);
     free(_res_c);
     free(_res_d);
-    */
+    free(_res_e);
 }
 
 int main()
