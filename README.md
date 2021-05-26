@@ -17,7 +17,7 @@
 BigInt is a C library for computing integers with arbitrary sizes. BigInt is currently in active development.
 
 # Motivation
-Built-in integer types in C are limited by the size of the register. Sufficed for most general purpose programming, they fall short when it comes to modern cryptography. The need to compute with primes with hundreds of digits dwarfs even the `long long` type. Thus, the need for a big integer library seemed justified.
+Built-in integer types in C are limited by the size of the register. Sufficed for many general purpose programming, they fall short when it comes to modern cryptography. The need to compute with primes with hundreds of digits dwarfs even the `long long` type. Thus, the need for a big integer library seemed justified.
 
 Noob to C and facinated by crytography, I have decided to write a big integer library as an excuse to practice C programming and to delve deeper into computer systems. A byproduct of learning, this codebase is (and continutes to be) rough on the edges, but hopefully less so in each succesive iterations. 
 
@@ -28,13 +28,13 @@ Inspired by the way CPython handles big numbers (PEP 237), the BigInt type is st
 ```
 struct BigInt
 {
-	int32_t sign_len;
-	uint32_t* digits;
+    int32_t sign_len;
+    uint32_t* digits;
 };
 ```
 The first field contains the both the sign and the number of digits, while the second an array of the actual digits. To efficiently convert a large integer to BigInt and vice versa, BigInt uses Base-giga (2^30) digits. 
 
-BigInt currently supports the following operations (in-progress API):
+BigInt currently supports the following operations (__in-progress__ API):
 
 ```
 /* constructor */
