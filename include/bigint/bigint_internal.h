@@ -53,11 +53,6 @@ struct QuoRem
     uint32_t* remainder;
 };
 
-/* Constant unsigned digits */
-static uint32_t U_DIGIT_ZERO[2] = {1, 0};
-static uint32_t U_DIGIT_ONE[2] = {1, 1};
-static uint32_t U_DIGIT_TWO[2] = {1, 2};
-
 /* private functions */
 int __same_sign(BigInt* a, BigInt* b);
 int __is_zero(uint32_t* n);

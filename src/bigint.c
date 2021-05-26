@@ -87,6 +87,7 @@ struct QuoRem* __single_divmod(uint32_t* n, uint32_t* d);
 
 /** debugging functions */
 void print_digits(char* var_name, uint32_t* slice);
+int legal_digits(uint32_t* digits);
 
 /****************************** SOURCE CODE ****************************/
 
@@ -324,7 +325,7 @@ uint32_t* __power_mod(uint32_t* base, uint32_t* exp,
         uint32_t* e_0 = quorem[0];
         free(quorem[1]); free(quorem);
         uint32_t* e_1 = __subtr(exp, e_0);
-    
+
         if (! hashmap_get(cache, e_0)) {
             uint32_t* r_0 = __power_mod(base, e_0, m, cache);
             hashmap_insert(cache, e_0, r_0);
@@ -333,8 +334,9 @@ uint32_t* __power_mod(uint32_t* base, uint32_t* exp,
             uint32_t* r_1 = __power_mod(base, e_1, m, cache);
             hashmap_insert(cache, e_1, r_1);
         }
+
         uint32_t* prod = __mult(hashmap_get(cache, e_0),
-                                        hashmap_get(cache, e_1));
+                                hashmap_get(cache, e_1));
         e_0 = NULL;
         e_1 = NULL;
         
@@ -728,7 +730,7 @@ uint32_t* __subtr(uint32_t* a, uint32_t* b)
         uint32_t a_i = i > *(a)? 0 : a[i];
         uint32_t b_i = i > *(b)? 0 : b[i];
 
-        if (a_i - carry < b_i) {
+        if (a_i < b_i + carry) {
             digits[i] = BASE - carry - b_i + a_i;
             carry = 1;
         } else {
@@ -788,8 +790,8 @@ struct QuoRem* __single_divmod(uint32_t* n, uint32_t* d)
     }
     quorem->quotian = q;
     quorem->remainder = __subtr(n, prod);
-    free(q_tmp); free(prod);
 
+    free(q_tmp); free(prod);
     return quorem;
 }
 
@@ -859,19 +861,10 @@ void print_digits(char* var_name, uint32_t* digits)
     printf("\n");
 }
 
-void debug_digits(char* a, uint32_t* ad,
-                  char* b, uint32_t* bd,
-                  char* r, uint32_t* rd) 
+int legal_digits(uint32_t* digits)
 {
-    int n = 0;
-    if (*(ad) > n) n =*(ad);
-    if (*(bd) > n) n =*(bd);
-    if (*(rd) > n) n =*(rd);
-
-    for (int i = n; i >= 1; i--) {
-        printf("%s[%d]: %u ", a, i, ad[i]);
-        printf("%s[%d]: %u ", b, i, bd[i]);
-        printf("%s[%d]: %u ", r, i, rd[i]);
-        printf("\n");
+    for (int i = 1; i <= *(digits); i++) {
+        if (digits[i] >= BASE) return 0;
     }
+    return 1; 
 }
