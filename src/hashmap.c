@@ -40,7 +40,6 @@ HashMap* hashmap_init(uint32_t size,
     hmap->hash = hash;
     hmap->repr_key = repr_key;
     hmap->repr_val = repr_val;
-    // hmap->map = malloc(size * sizeof(*(hmap->map)));
     return hmap;
 }
 
@@ -80,6 +79,12 @@ void hashmap_remove(HashMap* hmap, void* key) {
 void hashmap_print(HashMap* hmap) {
     for (int i = 0; i < hmap->size; i++) {
         __node_repr(hmap, hmap->map[i]);
+    }
+}
+
+void hashmap_clear(HashMap* hmap) {
+    for (int i = 0; i < hmap->size; i++) {
+        __node_free(&(hmap->map[i]));
     }
 }
 

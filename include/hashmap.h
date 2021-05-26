@@ -100,4 +100,11 @@ void hashmap_remove(HashMap* hmap, void* key);
  */
 void hashmap_print(HashMap* hmap);
 
+/**
+ * @brief Empties an entire hashmap
+ * 
+ * @param hmap The pointer to the hashmap.
+ */
+void hashmap_clear(HashMap* hmap);
+
 #endif // HASHMAP_H
