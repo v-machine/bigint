@@ -24,7 +24,7 @@ Noob to C and facinated by crytography, I have decided to write a big integer li
 # How It Works
 A naive approach will be to compute with an array of base ten digits, but this is a blatant waste of space and compute power, as each digit takes up only 4% of the smallest unsigned integer (8 bit). Moreover, computing with single digits as opposed to the entire register word size massively worsen time complexity by 2^30 (x86 architecture) or 2^62 times (x64 architecture). 
 
-Inspired by the way CPython handles big numbers (PEP 237), the BigInt type is structured as following:
+Inspired by how CPython handles big numbers (PEP 237), the BigInt type is structured as following:
 ```
 struct BigInt
 {
