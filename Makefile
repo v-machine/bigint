@@ -8,12 +8,12 @@ SRC 		:= 	src
 TEST_SRC 	:=  test
 TEST_FRAM	:=  test/sunittest
 
-test: $(TEST_SRC)/test_internal $(TEST_SRC)/test_api
+test: $(TEST_SRC)/test_internal $(TEST_SRC)/test_bigint
 	./$(TEST_SRC)/test_internal
-	./$(TEST_SRC)/test_api
+	./$(TEST_SRC)/test_bigint
 
-$(TEST_SRC)/test_api: $(TEST_SRC)/test_bigint.c $(BIN)/bigint.o $(BIN)/hashmap.o $(TEST_FRAM)/sunittest.o
-	$(CC) $(CPPFLAGS) $(TEST_SRC)/test_bigint.c $(BIN)/bigint.o $(BIN)/hashmap.o $(TEST_FRAM)/sunittest.o $(INCLUDE) -o $(TEST_SRC)/test_api
+$(TEST_SRC)/test_bigint: $(TEST_SRC)/test_bigint.c $(BIN)/bigint.o $(BIN)/hashmap.o $(TEST_FRAM)/sunittest.o
+	$(CC) $(CPPFLAGS) $(TEST_SRC)/test_bigint.c $(BIN)/bigint.o $(BIN)/hashmap.o $(TEST_FRAM)/sunittest.o $(INCLUDE) -o $(TEST_SRC)/test_bigint
 
 $(TEST_SRC)/test_internal: $(TEST_SRC)/test_bigint_internal.c $(BIN)/bigint.o $(BIN)/hashmap.o $(TEST_FRAM)/sunittest.o
 	$(CC) $(CPPFLAGS) $(TEST_SRC)/test_bigint_internal.c $(BIN)/bigint.o $(BIN)/hashmap.o $(TEST_FRAM)/sunittest.o $(INCLUDE) -o $(TEST_SRC)/test_internal
