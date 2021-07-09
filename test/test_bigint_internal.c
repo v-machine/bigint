@@ -9,6 +9,7 @@
  */
 
 #include "bigint/bigint_internal.h"
+#include "bigint/bigint.h"
 #include "sunittest/sunittest.h"
 #include <stdio.h>
 #include <stdlib.h>
@@ -468,9 +469,9 @@ void test_power_mod()
 
     uint32_t* _res_zero_a    = __power_mod(zero, three_digit, one, cache);
     hashmap_clear(cache);
-    uint32_t* _res_zero_b     = __power_mod(two_digit, three_digit, two_digit, cache);
+    uint32_t* _res_zero_b    = __power_mod(two_digit, three_digit, two_digit, cache);
     hashmap_clear(cache);
-    uint32_t* _res_one_a    = __power_mod(one, one_digit, two_digit, cache);
+    uint32_t* _res_one_a     = __power_mod(one, one_digit, two_digit, cache);
     hashmap_clear(cache);
     uint32_t* _res_one_b     = __power_mod(two_digit, zero, three_digit, cache);
     hashmap_clear(cache);
@@ -507,6 +508,32 @@ void test_power_mod()
     free(_res_e);
 }
 
+// expose __same_sign as public API?
+void test_same_sign()
+{
+    char s_neg_zero[] = "-0";
+    BigInt* pos_zero = bigint_init(s_zero);
+    BigInt* neg_zero = bigint_init(s_neg_zero);
+    
+    char s_neg_one[] = "-1";
+    BigInt* pos_one = bigint_init(s_one);
+    BigInt* neg_one = bigint_init(s_neg_one);
+
+    assert_true(__same_sign(pos_zero, neg_zero));
+    assert_true(__same_sign(pos_zero, pos_one));
+    assert_false(__same_sign(pos_one, neg_one));
+    assert_false(__same_sign(neg_zero, neg_one));
+
+    free(pos_zero->digits);
+    free(neg_zero->digits);
+    free(pos_one->digits);
+    free(neg_one->digits);
+    free(pos_zero);
+    free(neg_zero);
+    free(pos_one);
+    free(neg_one);
+}
+
 int main()
 {
     run_all_tests(
@@ -531,7 +558,8 @@ int main()
         test_mult,
         test_single_divmod,
         test_divmod,
-        test_power_mod
+        test_power_mod,
+        test_same_sign
     );
     return 0;
 }
