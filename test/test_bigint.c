@@ -117,11 +117,11 @@ void test_bigint_init()
 
 void test_bigint_to_str()
 {
-    char* _s_zero           = bigint_to_str(zero);
-    char* _s_small          = bigint_to_str(small);
+    char* _s_zero        = bigint_to_str(zero);
+    char* _s_small       = bigint_to_str(small);
     char* _s_one_digit   = bigint_to_str(one_digit);
-    char* _s_two_digit      = bigint_to_str(two_digit);
-    char* _s_three_digit    = bigint_to_str(three_digit);
+    char* _s_two_digit   = bigint_to_str(two_digit);
+    char* _s_three_digit = bigint_to_str(three_digit);
 
     assert_str_eq(s_zero,           _s_zero);
     assert_str_eq(s_small,          _s_small);
