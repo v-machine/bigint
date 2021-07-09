@@ -97,6 +97,10 @@ BigInt* bigint_init(char* sn)
     bigint->sign_len = (sn[0] == '-') ?
         1 - strlen(sn) : strlen(sn);
     bigint->digits = __to_base_giga(sn, abs(bigint->sign_len));
+
+    if (*(bigint->digits) == 1 && bigint->digits[1] == 0) {
+        bigint->sign_len = 1;
+    }
     return bigint;
 }
 
