@@ -108,7 +108,18 @@ BigInt* bigint_int_init(int32_t n)
 {
     // TODO: delegate to __assign_digits(n);
     BigInt* bigint = malloc(sizeof(*bigint));
-    bigint->sign_len = (n >= 0) ? n / 10 + 1 : -(n / 10 + 1);
+
+    // BUG: counting decimal digits wrong
+    bigint->sign_len = 0;
+    int dec_digits = n;
+    while (dec_digits != 0) {
+        dec_digits /= 10;
+        if (n > 0) ++(bigint->sign_len);
+        else --(bigint->sign_len);
+    }
+
+    if (n == 0) bigint->sign_len = 1;
+
     uint32_t* digits = malloc(2 * sizeof(*digits));
     if (n < BASE) {
         *digits = 1;
