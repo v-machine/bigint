@@ -77,12 +77,12 @@ void test_bigint_init()
     BigInt* _three_digit = bigint_init(s_three_digit);
     BigInt* _four_digit = bigint_init(s_four_digit);
 
-    assert_uint32_arr_eq(u_zero,          _zero->digits,          *u_zero + 1,          *(_zero->digits) + 1);
-    assert_uint32_arr_eq(u_small,         _small->digits,         *u_small + 1,         *(_small->digits) + 1);
-    assert_uint32_arr_eq(u_one_digit,     _one_digit->digits,     *u_one_digit + 1,     *(_one_digit->digits) + 1);
-    assert_uint32_arr_eq(u_two_digit,     _two_digit->digits,     *u_two_digit + 1,     *(_two_digit->digits) + 1);
-    assert_uint32_arr_eq(u_three_digit,   _three_digit->digits,   *u_three_digit + 1,   *(_three_digit->digits) + 1);
-    assert_uint32_arr_eq(u_four_digit,    _four_digit->digits,    *u_four_digit + 1,    *(_four_digit->digits) + 1);
+    assert_uint32_arr_eq(u_zero,        _zero->digits,        *u_zero + 1,        *(_zero->digits) + 1);
+    assert_uint32_arr_eq(u_small,       _small->digits,       *u_small + 1,       *(_small->digits) + 1);
+    assert_uint32_arr_eq(u_one_digit,   _one_digit->digits,   *u_one_digit + 1,   *(_one_digit->digits) + 1);
+    assert_uint32_arr_eq(u_two_digit,   _two_digit->digits,   *u_two_digit + 1,   *(_two_digit->digits) + 1);
+    assert_uint32_arr_eq(u_three_digit, _three_digit->digits, *u_three_digit + 1, *(_three_digit->digits) + 1);
+    assert_uint32_arr_eq(u_four_digit,  _four_digit->digits,  *u_four_digit + 1,  *(_four_digit->digits) + 1);
 
     assert_int_eq(strlen_s_zero,        _zero->sign_len);
     assert_int_eq(strlen_s_small,       _small->sign_len);
@@ -98,8 +98,6 @@ void test_bigint_init()
     free(u_three_digit);
     free(u_four_digit);
 
-    // TODO: free bigint manually
-    // Or test bigint_free first before testing init
     free(_zero->digits);
     free(_small->digits);
     free(_one_digit->digits);
@@ -113,6 +111,53 @@ void test_bigint_init()
     free(_two_digit);
     free(_three_digit);
     free(_four_digit);
+}
+
+void test_bigint_int_init()
+{
+    BigInt* _zero      = bigint_int_init(0);
+    BigInt* _small     = bigint_int_init(-11);
+    BigInt* _one_digit = bigint_int_init(999999999);
+
+    assert_uint32_arr_eq(zero->digits,      _zero->digits,      *(zero->digits) + 1,      *(_zero->digits) + 1);
+    assert_uint32_arr_eq(small->digits,     _small->digits,     *(small->digits) + 1,     *(_small->digits) + 1);
+    assert_uint32_arr_eq(one_digit->digits, _one_digit->digits, *(one_digit->digits) + 1, *(_one_digit->digits) + 1);
+
+    assert_int_eq(zero->sign_len,      _zero->sign_len);
+    assert_int_eq(small->sign_len,     _small->sign_len);
+    assert_int_eq(one_digit->sign_len, _one_digit->sign_len);
+
+    free(_zero->digits);
+    free(_small->digits);
+    free(_one_digit->digits);
+
+    free(_zero);
+    free(_small);
+    free(_one_digit);
+}
+
+void test_bigint_free()
+{
+    BigInt* _zero = bigint_init(s_zero);
+    BigInt* _small = bigint_init(s_small);
+    BigInt* _one_digit = bigint_init(s_one_digit);
+    BigInt* _two_digit = bigint_init(s_two_digit);
+    BigInt* _three_digit = bigint_init(s_three_digit);
+    BigInt* _four_digit = bigint_init(s_four_digit);
+
+    bigint_free(&_zero);
+    bigint_free(&_small);
+    bigint_free(&_one_digit);
+    bigint_free(&_two_digit);
+    bigint_free(&_three_digit);
+    bigint_free(&_four_digit);
+
+    assert_false(_zero);
+    assert_false(_small);
+    assert_false(_one_digit);
+    assert_false(_two_digit);
+    assert_false(_three_digit);
+    assert_false(_four_digit);
 }
 
 void test_bigint_to_str()
@@ -136,11 +181,37 @@ void test_bigint_to_str()
     free(_s_three_digit);
 }
 
+void test_bigint_add()
+{
+
+}
+
+void test_bigint_subtr()
+{
+
+}
+
+void test_bigint_mult()
+{
+
+}
+
+void test_bigint_div()
+{
+
+}
+
 int main()
 {
     run_all_tests(
         test_bigint_init,
-        test_bigint_to_str
+        test_bigint_int_init,
+        test_bigint_free,
+        test_bigint_to_str,
+        test_bigint_add,
+        test_bigint_subtr,
+        test_bigint_mult,
+        test_bigint_div
     );
     return 0;
 }
