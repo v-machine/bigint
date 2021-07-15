@@ -84,5 +84,8 @@ Coming soon.
 - [ ] uint tested API functions
 - [ ] performance analysis 
 - [ ] demos created
-- [ ] bigint v3.0 prototype (with built-in GC) started
-- [ ] ...
+- [ ] bigint v3.0 prototype started
+
+# BigInt V3.0 Features
+- auto GC
+- auto cast (int to BigInt)
