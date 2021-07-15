@@ -16,26 +16,28 @@
 
 /* read-only global variables */
 
-char s_zero[]         = "0";
-char s_small[]        = "-11";
-char s_one_digit[]    = "999999999";
-char s_two_digit[]    = "-1000000000";
-char s_three_digit[]  = "1999999999111111111";
-char s_four_digit[]   = "-3222222222111111111000000000";
+char s_zero[]        = "0";
+char s_small[]       = "-11";
+char s_one_digit[]   = "999999999";
+char s_two_digit[]   = "-1000000000";
+char s_three_digit[] = "1999999999111111111";
+char s_four_digit[]  = "-3222222222111111111000000000";
 
 BigInt* zero;
 BigInt* small;
 BigInt* one_digit;
 BigInt* two_digit;
 BigInt* three_digit;
+BigInt* four_digit;
 
 void set_up()
 {
-    zero = bigint_init(s_zero);
-    small = bigint_init(s_small);
-    one_digit = bigint_init(s_one_digit);
-    two_digit = bigint_init(s_two_digit);
+    zero        = bigint_init(s_zero);
+    small       = bigint_init(s_small);
+    one_digit   = bigint_init(s_one_digit);
+    two_digit   = bigint_init(s_two_digit);
     three_digit = bigint_init(s_three_digit);
+    four_digit  = bigint_init(s_four_digit);
 }
 
 void tear_down()
@@ -45,6 +47,7 @@ void tear_down()
     bigint_free(&one_digit);
     bigint_free(&two_digit);
     bigint_free(&three_digit);
+    bigint_free(&four_digit);
 }
 
 int __strlen(char* sn)
@@ -115,6 +118,8 @@ void test_bigint_init()
 
 void test_bigint_int_init()
 {
+    set_bail_on_fail();
+
     BigInt* _zero      = bigint_int_init(0);
     BigInt* _small     = bigint_int_init(-11);
     BigInt* _one_digit = bigint_int_init(999999999);
@@ -181,9 +186,61 @@ void test_bigint_to_str()
     free(_s_three_digit);
 }
 
-void test_bigint_add()
+void test_bigint_eq()
+{
+    
+}
+
+void test_bigint_gt()
 {
 
+}
+
+void test_bigint_st()
+{
+
+}
+
+void test_bigint_add()
+{
+    BigInt* _zero          = bigint_add(zero, zero);
+    BigInt* _small         = bigint_add(zero, small);
+    BigInt* _one_digit     = bigint_add(zero, one_digit);
+    BigInt* _neg_one       = bigint_add(one_digit, two_digit);
+    BigInt* _res_two_digit = bigint_add(two_digit, three_digit);
+    BigInt* _res_four_digit = bigint_add(three_digit, four_digit);
+
+    char s_neg_one[]        = "-1";
+    char s_res_two_digit[]  = "1999999998111111111";
+    char s_res_four_digit[] = "-3222222220111111111888888889";
+
+    char* _s_zero           = bigint_to_str(_zero);
+    char* _s_small          = bigint_to_str(_small);
+    char* _s_one_digit      = bigint_to_str(_one_digit);
+    char* _s_neg_one        = bigint_to_str(_neg_one);
+    char* _s_res_two_digit  = bigint_to_str(_res_two_digit);
+    char* _s_res_four_digit = bigint_to_str(_res_four_digit);
+
+    assert_str_eq(s_zero,           _s_zero);
+    assert_str_eq(s_small,          _s_small);
+    assert_str_eq(s_one_digit,      _s_one_digit);
+    assert_str_eq(s_neg_one,        _s_neg_one);
+    assert_str_eq(s_res_two_digit,  _s_res_two_digit);
+    assert_str_eq(s_res_four_digit, _s_res_four_digit);
+
+    free(_s_zero);
+    free(_s_small);
+    free(_s_one_digit);
+    free(_s_neg_one);
+    free(_s_res_two_digit);
+    free(_s_res_four_digit);
+
+    bigint_free(&_zero);
+    bigint_free(&_small);
+    bigint_free(&_one_digit);
+    bigint_free(&_neg_one);
+    bigint_free(&_res_two_digit);
+    bigint_free(&_res_four_digit);
 }
 
 void test_bigint_subtr()
@@ -208,6 +265,9 @@ int main()
         test_bigint_int_init,
         test_bigint_free,
         test_bigint_to_str,
+        test_bigint_gt,
+        test_bigint_st,
+        test_bigint_eq,
         test_bigint_add,
         test_bigint_subtr,
         test_bigint_mult,
