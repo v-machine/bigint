@@ -89,3 +89,4 @@ Coming soon.
 # BigInt V3.0 Features
 - auto GC
 - auto cast (int to BigInt)
+- command line test runner
