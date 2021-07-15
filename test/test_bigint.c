@@ -245,7 +245,44 @@ void test_bigint_add()
 
 void test_bigint_subtr()
 {
+    BigInt* _zero            = bigint_subtr(zero, zero);  
+    BigInt* _one_digit       = bigint_subtr(one_digit, zero);
+    BigInt* _three_digit     = bigint_subtr(three_digit, zero);
+    BigInt* _pos_two_digit   = bigint_subtr(zero, two_digit);
+    BigInt* _neg_three_digit = bigint_subtr(two_digit, three_digit);
+    BigInt* _res_four_digit  = bigint_subtr(three_digit, four_digit);
 
+    char s_pos_two_digit[]   = "1000000000";
+    char s_neg_three_digit[] = "-2000000000111111111";
+    char s_res_four_digit[]  = "3222222224111111110111111111";
+
+    char* _s_zero            = bigint_to_str(_zero);
+    char* _s_one_digit       = bigint_to_str(_one_digit); 
+    char* _s_three_digit     = bigint_to_str(_three_digit); 
+    char* _s_pos_two_digit   = bigint_to_str(_pos_two_digit); 
+    char* _s_neg_three_digit = bigint_to_str(_neg_three_digit); 
+    char* _s_res_four_digit  = bigint_to_str(_res_four_digit); 
+
+    assert_str_eq(s_zero,            _s_zero);
+    assert_str_eq(s_one_digit,       _s_one_digit);
+    assert_str_eq(s_three_digit,     _s_three_digit);
+    assert_str_eq(s_pos_two_digit,   _s_pos_two_digit);
+    assert_str_eq(s_neg_three_digit, _s_neg_three_digit);
+    assert_str_eq(s_res_four_digit,  _s_res_four_digit);
+
+    free(_s_zero);            
+    free(_s_one_digit);
+    free(_s_three_digit);
+    free(_s_pos_two_digit);
+    free(_s_neg_three_digit); 
+    free(_s_res_four_digit);
+
+    bigint_free(&_zero);
+    bigint_free(&_one_digit);
+    bigint_free(&_three_digit);
+    bigint_free(&_pos_two_digit);
+    bigint_free(&_neg_three_digit);
+    bigint_free(&_res_four_digit);
 }
 
 void test_bigint_mult()
