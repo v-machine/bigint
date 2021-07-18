@@ -287,7 +287,28 @@ void test_bigint_subtr()
 
 void test_bigint_mult()
 {
+    BigInt* _zero            = bigint_mult(zero, small);  
+    BigInt* _neg_two_digit   = bigint_mult(small, one_digit);  
+    BigInt* _pos_four_digit  = bigint_mult(one_digit, three_digit);  
 
+    char s_neg_two_digit[]   = "-10999999989";
+    char s_pos_four_digit[]  = "1999999997111111111888888889";
+
+    char* _s_zero            = bigint_to_str(_zero);
+    char* _s_neg_two_digit   = bigint_to_str(_neg_two_digit);
+    char* _s_pos_four_digit  = bigint_to_str(_pos_four_digit);
+
+    assert_str_eq(s_zero,            _s_zero);
+    assert_str_eq(s_neg_two_digit,   _s_neg_two_digit);
+    assert_str_eq(s_pos_four_digit, _s_pos_four_digit);
+
+    free(_s_zero);
+    free(_s_neg_two_digit);
+    free(_s_pos_four_digit);
+
+    bigint_free(&_zero);
+    bigint_free(&_neg_two_digit);
+    bigint_free(&_pos_four_digit);
 }
 
 void test_bigint_div()
