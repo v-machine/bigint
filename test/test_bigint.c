@@ -319,7 +319,36 @@ void test_bigint_mult()
 
 void test_bigint_div()
 {
+    // how to test for stderr return
+    // int stderr = bigint_div(small, zero);
+    
+    BigInt* _zero            = bigint_div(zero, three_digit);  
+    BigInt* _neg_one_digit   = bigint_div(one_digit, small);  
+    BigInt* _denom_gt_nom    = bigint_div(one_digit, two_digit);  
+    BigInt* _pos_three_digit = bigint_div(four_digit, two_digit);
 
+    char s_neg_one_digit[]  = "-90909091";
+    char s_pos_three_digit[]  = "3222222222111111111";
+
+    char* _s_zero            = bigint_to_str(_zero);
+    char* _s_neg_one_digit   = bigint_to_str(_neg_one_digit);
+    char* _s_denom_gt_nom    = bigint_to_str(_denom_gt_nom);
+    char* _s_pos_three_digit = bigint_to_str(_pos_three_digit);
+
+    assert_str_eq(s_zero,            _s_zero);
+    assert_str_eq(s_neg_one_digit,   _s_neg_one_digit);
+    assert_str_eq(s_zero,            _s_denom_gt_nom);
+    assert_str_eq(s_pos_three_digit, _s_pos_three_digit);
+
+    free(_s_zero);
+    free(_s_neg_one_digit);
+    free(_s_denom_gt_nom);
+    free(_s_pos_three_digit);
+
+    bigint_free(&_zero);
+    bigint_free(&_neg_one_digit);
+    bigint_free(&_denom_gt_nom);
+    bigint_free(&_pos_three_digit);
 }
 
 int main()
