@@ -327,7 +327,8 @@ void test_bigint_div()
     BigInt* _denom_gt_nom    = bigint_div(one_digit, two_digit);  
     BigInt* _pos_three_digit = bigint_div(four_digit, two_digit);
 
-    char s_neg_one_digit[]  = "-90909091";
+    char s_neg_one[]          = "-1";
+    char s_neg_one_digit[]    = "-90909091";
     char s_pos_three_digit[]  = "3222222222111111111";
 
     char* _s_zero            = bigint_to_str(_zero);
@@ -337,7 +338,7 @@ void test_bigint_div()
 
     assert_str_eq(s_zero,            _s_zero);
     assert_str_eq(s_neg_one_digit,   _s_neg_one_digit);
-    assert_str_eq(s_zero,            _s_denom_gt_nom);
+    assert_str_eq(s_neg_one,         _s_denom_gt_nom);
     assert_str_eq(s_pos_three_digit, _s_pos_three_digit);
 
     free(_s_zero);

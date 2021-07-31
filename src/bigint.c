@@ -229,7 +229,13 @@ BigInt* bigint_div(BigInt* n, BigInt* d)
     BigInt* res = malloc(sizeof(*res));
     uint32_t** quorem = __divmod(n->digits, d->digits);
     uint32_t* quotian = quorem[0];
-    free(quorem[1]);
+    uint32_t* remainder = quorem[1];
+
+    /* negative integer division */
+    if (! __same_sign(d, n) && ! __is_zero(remainder))
+        __incr(quotian);
+
+    free(remainder);
     free(quorem);
 
     res->digits = quotian;

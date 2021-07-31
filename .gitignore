@@ -2,3 +2,4 @@
 .mkrc
 .env
 *.log
+log.md
