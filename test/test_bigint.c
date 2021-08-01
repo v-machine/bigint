@@ -243,7 +243,32 @@ void test_bigint_gt()
 
 void test_bigint_st()
 {
+    char s_pos_two_digit[]   = "1000000000"; 
+    char s_pos_three_digit[] = "1999999999111111112";
+    char s_neg_four_digit[]  = "-3222222222111111111000000001";
 
+    BigInt* pos_two_digit   = bigint_init(s_pos_two_digit);
+    BigInt* pos_three_digit = bigint_init(s_pos_three_digit);
+    BigInt* neg_four_digit  = bigint_init(s_neg_four_digit);
+
+    assert_true(bigint_st(zero,        one_digit));
+    assert_true(bigint_st(two_digit,   one_digit));
+    assert_true(bigint_st(one_digit,   three_digit));
+    assert_true(bigint_st(one_digit,   pos_two_digit));
+    assert_true(bigint_st(three_digit, pos_three_digit));
+    assert_true(bigint_st(two_digit,   small));
+    assert_true(bigint_st(four_digit,  two_digit));
+    
+    assert_false(bigint_st(zero,        zero));
+    assert_false(bigint_st(three_digit, three_digit));
+    assert_false(bigint_st(four_digit,  four_digit));
+    assert_false(bigint_st(two_digit,   four_digit));
+    assert_false(bigint_st(three_digit, four_digit));
+    assert_false(bigint_st(four_digit,  neg_four_digit));
+
+    bigint_free(&pos_two_digit);
+    bigint_free(&pos_three_digit);
+    bigint_free(&neg_four_digit);
 }
 
 void test_bigint_add()
