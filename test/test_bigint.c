@@ -188,12 +188,57 @@ void test_bigint_to_str()
 
 void test_bigint_eq()
 {
-    
+    set_bail_on_fail();
+    BigInt* _small      = bigint_init(s_small); 
+    BigInt* _two_digit  = bigint_init(s_two_digit); 
+    BigInt* _four_digit = bigint_init(s_four_digit); 
+
+    assert_true(bigint_eq(zero,        zero)); 
+    assert_true(bigint_eq(one_digit,   one_digit)); 
+    assert_true(bigint_eq(three_digit, three_digit)); 
+    assert_true(bigint_eq(small,       _small)); 
+    assert_true(bigint_eq(two_digit,   _two_digit)); 
+    assert_true(bigint_eq(four_digit,  _four_digit)); 
+
+    assert_false(bigint_eq(zero,        _small));
+    assert_false(bigint_eq(one_digit,   _two_digit));
+    assert_false(bigint_eq(_small,      one_digit));
+    assert_false(bigint_eq(two_digit,   three_digit));
+    assert_false(bigint_eq(_four_digit, three_digit));
+
+    bigint_free(&_small);
+    bigint_free(&_two_digit);
+    bigint_free(&_four_digit);
 }
 
 void test_bigint_gt()
 {
+    char s_pos_two_digit[]   = "1000000000"; 
+    char s_pos_three_digit[] = "1999999999111111112";
+    char s_neg_four_digit[]  = "-3222222222111111111000000001";
 
+    BigInt* pos_two_digit   = bigint_init(s_pos_two_digit);
+    BigInt* pos_three_digit = bigint_init(s_pos_three_digit);
+    BigInt* neg_four_digit  = bigint_init(s_neg_four_digit);
+
+    assert_true(bigint_gt(one_digit,       zero));
+    assert_true(bigint_gt(one_digit,      two_digit));
+    assert_true(bigint_gt(three_digit,     one_digit));
+    assert_true(bigint_gt(pos_two_digit,   one_digit));
+    assert_true(bigint_gt(pos_three_digit, three_digit));
+    assert_true(bigint_gt(small,           two_digit));
+    assert_true(bigint_gt(two_digit,       four_digit));
+    
+    assert_false(bigint_gt(zero,           zero));
+    assert_false(bigint_gt(three_digit,    three_digit));
+    assert_false(bigint_gt(four_digit,     four_digit));
+    assert_false(bigint_gt(four_digit,     two_digit));
+    assert_false(bigint_gt(four_digit,     three_digit));
+    assert_false(bigint_gt(neg_four_digit, four_digit));
+
+    bigint_free(&pos_two_digit);
+    bigint_free(&pos_three_digit);
+    bigint_free(&neg_four_digit);
 }
 
 void test_bigint_st()
@@ -203,11 +248,11 @@ void test_bigint_st()
 
 void test_bigint_add()
 {
-    BigInt* _zero          = bigint_add(zero, zero);
-    BigInt* _small         = bigint_add(zero, small);
-    BigInt* _one_digit     = bigint_add(zero, one_digit);
-    BigInt* _neg_one       = bigint_add(one_digit, two_digit);
-    BigInt* _res_two_digit = bigint_add(two_digit, three_digit);
+    BigInt* _zero           = bigint_add(zero, zero);
+    BigInt* _small          = bigint_add(zero, small);
+    BigInt* _one_digit      = bigint_add(zero, one_digit);
+    BigInt* _neg_one        = bigint_add(one_digit, two_digit);
+    BigInt* _res_two_digit  = bigint_add(two_digit, three_digit);
     BigInt* _res_four_digit = bigint_add(three_digit, four_digit);
 
     char s_neg_one[]        = "-1";
@@ -352,6 +397,34 @@ void test_bigint_div()
     bigint_free(&_pos_three_digit);
 }
 
+void test_bigint_mod()
+{
+}
+
+void test_bigint_log()
+{
+}
+
+void test_bigint_power_mod()
+{
+}
+
+void test_bigint_abs()
+{
+}
+
+void test_bigint_neg()
+{
+}
+
+void test_bigint_copy()
+{
+}
+
+void test_bigint_hash()
+{
+}
+
 int main()
 {
     run_all_tests(
@@ -366,6 +439,13 @@ int main()
         test_bigint_subtr,
         test_bigint_mult,
         test_bigint_div
+        // test_bigint_mod,
+        // test_bigint_log,
+        // test_bigint_power_mod,
+        // test_bigint_abs,
+        // test_bigint_neg,
+        // test_bigint_copy,
+        // test_bigint_hash
     );
     return 0;
 }

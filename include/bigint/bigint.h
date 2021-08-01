@@ -140,7 +140,7 @@ BigInt* bigint_neg(BigInt* n);
  *
  * @param a Large integer stored as a BigInt.
  * @param b Large integer stored as a BigInt.
- * @return 1 if a > b, and 0 otherwise.
+ * @return 1 if a < b, and 0 otherwise.
  */
 int bigint_st(BigInt* a, BigInt* b);
 
@@ -149,7 +149,7 @@ int bigint_st(BigInt* a, BigInt* b);
  *
  * @param a Large integer stored as a BigInt.
  * @param b Large integer stored as a BigInt.
- * @return 1 if a < b, and 0 otherwise.
+ * @return 1 if a > b, and 0 otherwise.
  */
 int bigint_gt(BigInt* a, BigInt* b);
 

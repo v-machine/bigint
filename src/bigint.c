@@ -198,7 +198,9 @@ BigInt* bigint_subtr(BigInt* a, BigInt* b)
         return res;
     }
     int sign = 1;
-    if (bigint_gt(a, b)) {
+    if (bigint_eq(a, b)) {
+        res->digits = __copy_digits(U_DIGIT_ZERO);
+    } else if (bigint_gt(a, b)) {
         res->digits = (a->sign_len >= 0) ? 
             __subtr(a->digits, b->digits) :
             __subtr(b->digits, a->digits);
@@ -410,7 +412,9 @@ int bigint_gt(BigInt* a, BigInt* b)
 {
     if (a->sign_len > b->sign_len) return 1;
     if (a->sign_len == b->sign_len) {
-        if (a->sign_len > 0) {
+        if (__eq(a->digits, b->digits)) {
+            return 0;
+        } else if (a->sign_len > 0) {
             return __st(a->digits, b->digits) ? 0 : 1;
         } else {
             return __gt(a->digits, b->digits) ? 0 : 1;
