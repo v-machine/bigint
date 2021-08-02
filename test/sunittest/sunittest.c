@@ -118,7 +118,8 @@ void print_test_header(const char* test_name)
 }
 
 void print_test_log() {
-    printf("----------------------------------\n");
+    printf("--------------------------------------------------\n");
     printf("TEST RESULT: (%d of %d) Passed.\n",
             tests_run - tests_failed, tests_run);
+    printf("\n");
 }

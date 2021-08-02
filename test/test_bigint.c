@@ -424,6 +424,30 @@ void test_bigint_div()
 
 void test_bigint_mod()
 {
+    // how to test for stderr return
+    // int stderr = bigint_mod(small, zero);
+    BigInt* _zero       = bigint_mod(zero, small);
+    BigInt* _small      = bigint_mod(one_digit, small);
+    BigInt* _one_digit  = bigint_mod(small, one_digit);
+
+    char e_s_small[]     = "-2";
+    char e_s_one_digit[] = "999999988";
+
+    char* a_s_zero      = bigint_to_str(_zero);
+    char* a_s_small     = bigint_to_str(_small);
+    char* a_s_one_digit = bigint_to_str(_one_digit);
+
+    assert_str_eq(s_zero,        a_s_zero);
+    assert_str_eq(e_s_small,     a_s_small);
+    assert_str_eq(e_s_one_digit, a_s_one_digit);
+
+    free(a_s_zero);
+    free(a_s_small);
+    free(a_s_one_digit);
+
+    bigint_free(&_zero);
+    bigint_free(&_small);
+    bigint_free(&_one_digit);
 }
 
 void test_bigint_log()
@@ -463,8 +487,8 @@ int main()
         test_bigint_add,
         test_bigint_subtr,
         test_bigint_mult,
-        test_bigint_div
-        // test_bigint_mod,
+        test_bigint_div,
+        test_bigint_mod
         // test_bigint_log,
         // test_bigint_power_mod,
         // test_bigint_abs,

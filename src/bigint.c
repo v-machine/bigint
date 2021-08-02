@@ -245,7 +245,7 @@ BigInt* bigint_div(BigInt* n, BigInt* d)
     return (__same_sign(n, d)) ? res : _neg(res);
 }
 
-// TODO: make this behave like c modulo operator.
+/* true modulo as opposed to the default C remainder operation */
 BigInt* bigint_mod(BigInt* n, BigInt* m) 
 {
     if (__is_zero(m->digits)) {
